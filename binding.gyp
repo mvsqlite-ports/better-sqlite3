@@ -7,11 +7,15 @@
   'targets': [
     {
       'target_name': 'better_sqlite3',
-      'dependencies': ['deps/sqlite3.gyp:sqlite3'],
       'sources': ['src/better_sqlite3.cpp'],
       'cflags': ['-std=c++14'],
       'xcode_settings': {
         'OTHER_CPLUSPLUSFLAGS': ['-std=c++14', '-stdlib=libc++'],
+      },
+      "link_settings": {
+        "libraries": [
+          "-lsqlite3",
+        ],
       },
       'conditions': [
         ['OS=="linux"', {
@@ -24,7 +28,6 @@
     },
     {
       'target_name': 'test_extension',
-      'dependencies': ['deps/sqlite3.gyp:sqlite3'],
       'conditions': [['sqlite3 == ""', { 'sources': ['deps/test_extension.c'] }]],
     },
   ],
